@@ -1,0 +1,5 @@
+{
+    "conventionalCommits.scopes": [
+        "Build project! with a some entitys (Users and Auth)"
+    ]
+}

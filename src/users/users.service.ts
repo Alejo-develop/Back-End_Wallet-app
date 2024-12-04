@@ -23,6 +23,7 @@ export class UsersService {
     return await this.userRepository.findOne({
       where: {email: email},
       select: [
+        'id',
         'email',
         'password'
       ]

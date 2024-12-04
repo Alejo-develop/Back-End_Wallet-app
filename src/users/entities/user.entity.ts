@@ -1,28 +1,48 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Budget } from 'src/budget/entities/budget.entity';
+import { Category } from 'src/categorys/entities/category.entity';
+import { Transaction } from 'src/transactions/entities/transaction.entity';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column({nullable: true})
-    name: string
+  @Column({ nullable: true })
+  name: string;
 
-    @Column({nullable: true})
-    lastName: string
+  @Column({ nullable: true })
+  lastName: string;
 
-    @Column()
-    email: string
+  @Column()
+  email: string;
 
-    @Column({select: false})
-    password: string
+  @Column({ select: false })
+  password: string;
 
-    @CreateDateColumn()
-    createAt: Date
+  @OneToMany(() => Budget, (budget) => budget.user)
+  budget: Budget[];
 
-    @UpdateDateColumn()
-    updateAt: Date
+  @OneToMany(() => Transaction, (transaction) => transaction.user)
+  transaction: Transaction[];
 
-    @DeleteDateColumn()
-    deleteAt: Date
+  @OneToMany(() => Category, (category) => category.user)
+  category: Category[]
+
+  @CreateDateColumn()
+  createAt: Date;
+
+  @UpdateDateColumn()
+  updateAt: Date;
+
+  @DeleteDateColumn()
+  deleteAt: Date;
 }
