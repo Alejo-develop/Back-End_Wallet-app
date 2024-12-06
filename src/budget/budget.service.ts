@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBudgetDto } from './dto/create-budget.dto';
-import { UpdateBudgetDto } from './dto/update-budget.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Budget } from './entities/budget.entity';
+import { Repository } from 'typeorm';
+import { WalletService } from 'src/wallet/wallet.service';
+import { TransactionsService } from 'src/transactions/transactions.service';
 
 @Injectable()
 export class BudgetService {
-  create(createBudgetDto: CreateBudgetDto) {
-    return 'This action adds a new budget';
+  constructor(
+    @InjectRepository(Budget) private readonly budgetRepository: Repository<Budget>,
+    private readonly walletServices: WalletService,
+    @Inject(forwardRef(() => TransactionsService)) private readonly transactionsServices: TransactionsService,
+  ){}
+
+  async findOne(id: string){
+    const budgetFound = await this.budgetRepository.findOne({where: {id}})
+
+    if(!budgetFound) throw new NotFoundException('Budget not found')
+
+    return budgetFound
   }
 
-  findAll() {
-    return `This action returns all budget`;
+  async createBudget(createBudgetDto: CreateBudgetDto){
+    await this.walletServices.subtractMoney(createBudgetDto.walletID, createBudgetDto.budget)
+
+    return await this.budgetRepository.save(createBudgetDto)
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} budget`;
+  async substractMoney(id: string, cost: number){
+    const budgetFound = await this.findOne(id)
+
+    budgetFound.budget = budgetFound.budget - cost
+    
+    return await this.budgetRepository.save(budgetFound)
   }
 
-  update(id: number, updateBudgetDto: UpdateBudgetDto) {
-    return `This action updates a #${id} budget`;
+  async addMoney(id: string, cost: number){
+    const budgetFound = await this.findOne(id)
+
+    budgetFound.budget = budgetFound.budget + cost
+
+    await this.walletServices.subtractMoney(id, cost)
+    
+    return await this.budgetRepository.save(budgetFound)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} budget`;
+  async remove(id: string){
+    await this.findOne(id)
+
+    return await this.budgetRepository.softDelete(id)
   }
 }

@@ -1,6 +1,7 @@
 import { Budget } from 'src/budget/entities/budget.entity';
 import { Transaction } from 'src/transactions/entities/transaction.entity';
 import { User } from 'src/users/entities/user.entity';
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
@@ -21,6 +22,13 @@ export class Category {
 
   @Column({})
   budgetID: string;
+
+  @ManyToOne(() => Wallet)
+  @JoinColumn({ name: 'walletID', referencedColumnName: 'id' })
+  wallet: Budget;
+
+  @Column({})
+  walletID: string;
 
   @Column({ nullable: false })
   name: string;

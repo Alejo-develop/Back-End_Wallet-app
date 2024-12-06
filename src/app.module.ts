@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { BudgetModule } from './budget/budget.module';
 import { CategorysModule } from './categorys/categorys.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { WalletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { TransactionsModule } from './transactions/transactions.module';
     AuthModule,
     BudgetModule,
     CategorysModule,
-    TransactionsModule
+    TransactionsModule,
+    WalletModule
   ],
   controllers: [],
   providers: [],

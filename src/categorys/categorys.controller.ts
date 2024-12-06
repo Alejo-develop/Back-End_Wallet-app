@@ -1,34 +1,31 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { CategorysService } from './categorys.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { AuthGuard } from 'src/common/guard/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('categorys')
 export class CategorysController {
   constructor(private readonly categorysService: CategorysService) {}
 
-  @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categorysService.create(createCategoryDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.categorysService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categorysService.findOne(+id);
+  async findAll(@Param('id') id: string) {
+    return await this.categorysService.findAll(id)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-    return this.categorysService.update(+id, updateCategoryDto);
+  @Post()
+  async createCategory(@Body() createCategoryDto: CreateCategoryDto){
+    return await this.categorysService.createCategory(createCategoryDto)
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categorysService.remove(+id);
+  @Patch('id')
+  async updateCategory(@Param(':id') id: string, updateCategoryDto: UpdateCategoryDto){
+    return await this.categorysService.updateCategory(id, updateCategoryDto)
+  }
+
+  @Delete('id')
+  async removeCategory(@Param(':id') id: string){
+    return await this.categorysService.removeCategory(id)
   }
 }

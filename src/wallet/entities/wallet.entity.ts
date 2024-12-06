@@ -1,7 +1,7 @@
+import { Budget } from 'src/budget/entities/budget.entity';
 import { Category } from 'src/categorys/entities/category.entity';
 import { Transaction } from 'src/transactions/entities/transaction.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
 import {
   Column,
   CreateDateColumn,
@@ -15,15 +15,9 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Budget {
+export class Wallet {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({})
-  name: string;
-
-  @Column({type: 'decimal'})
-  budget: number
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userID', referencedColumnName: 'id' })
@@ -32,18 +26,35 @@ export class Budget {
   @Column({})
   userID: string;
 
-  @ManyToOne(() => Wallet)
-  @JoinColumn({ name: 'walletID', referencedColumnName: 'id' })
-  wallet: User;
+  @Column({ type: 'decimal' })
+  salary: number;
 
   @Column({})
-  walletID: string;
- 
-  @OneToMany(() => Transaction, (transation) => transation.budget)
-  transaction: Transaction[]
+  cardName: string;
 
-  @OneToMany(() => Category, (category) => category.budget)
-  category: Category[]
+  @Column({})
+  CardNumber: string;
+
+  @Column({})
+  expirationDate: string;
+
+  @Column({})
+  cvv: string;
+
+  @Column({ type: 'decimal', nullable: true })
+  extraCash: number;
+
+  @Column({ type: 'decimal' })
+  expenditures: number;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.wallet)
+  transactions: Transaction[];
+
+  @OneToMany(() => Category, (category) => category.wallet)
+  category: Category[];
+
+  @OneToMany(() => Budget, (budget) => budget.wallet)
+  budget: Budget[];
 
   @CreateDateColumn()
   createAt: Date;
