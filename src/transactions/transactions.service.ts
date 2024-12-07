@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Repository } from 'typeorm';
 import { BudgetService } from 'src/budget/budget.service';
+import { CategorysService } from 'src/categorys/categorys.service';
 
 @Injectable()
 export class TransactionsService {
@@ -12,11 +13,12 @@ export class TransactionsService {
     @InjectRepository(Transaction)
     private readonly transactionRepository: Repository<Transaction>,
     private readonly budgetServices: BudgetService,
+    private readonly categoryServices: CategorysService,
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto) {
-    await this.budgetServices.substractMoney(
-      createTransactionDto.budgetID,
+    await this.categoryServices.substractMoney(
+      createTransactionDto.categoryID,
       createTransactionDto.cost,
     );
 
@@ -33,9 +35,15 @@ export class TransactionsService {
     return transactionFound;
   }
 
-  async updateTransaction(id: string, updateTransactionDto: UpdateTransactionDto){
+  async updateTransaction(
+    id: string,
+    updateTransactionDto: UpdateTransactionDto,
+  ) {
     const transactionFound = await this.findById(id);
 
-    return await this.transactionRepository.save({...transactionFound, ...updateTransactionDto})
+    return await this.transactionRepository.save({
+      ...transactionFound,
+      ...updateTransactionDto,
+    });
   }
 }

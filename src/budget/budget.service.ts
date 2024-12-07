@@ -22,8 +22,16 @@ export class BudgetService {
     return budgetFound
   }
 
+  async findAllBudgetUser(userID: string){
+    const budgetFound = await this.budgetRepository.find({where: {userID: userID}})
+
+    if(!budgetFound) throw new NotFoundException('Budgets not found')
+
+    return budgetFound
+  }
+
   async createBudget(createBudgetDto: CreateBudgetDto){
-    await this.walletServices.subtractMoney(createBudgetDto.walletID, createBudgetDto.budget)
+    await this.walletServices.subtractMoney(createBudgetDto.userID, createBudgetDto.budget)
 
     return await this.budgetRepository.save(createBudgetDto)
   }

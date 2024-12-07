@@ -5,6 +5,12 @@ export class CreateCategoryDto {
   budgetID: string;
 
   @IsString()
+  userID: string;
+
+  @IsString()
+  walletID: string;
+
+  @IsString()
   name: string;
 
   @IsString()

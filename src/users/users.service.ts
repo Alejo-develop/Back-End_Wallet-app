@@ -25,6 +25,7 @@ export class UsersService {
       select: [
         'id',
         'email',
+        'name', 
         'password'
       ]
     })

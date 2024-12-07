@@ -17,7 +17,7 @@ export class WalletService {
   }
 
   async findById(id: string) {
-    const walletFound = await this.walletRepository.findOne({ where: { id } });
+    const walletFound = await this.walletRepository.findOne({ where: {userID: id } });
 
     if (!walletFound) throw new NotFoundException('Wallet not found');
 

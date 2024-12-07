@@ -23,28 +23,28 @@ export class Wallet {
   @JoinColumn({ name: 'userID', referencedColumnName: 'id' })
   user: User;
 
-  @Column({})
+  @Column()
   userID: string;
 
   @Column({ type: 'decimal' })
   salary: number;
 
-  @Column({})
+  @Column()
   cardName: string;
 
-  @Column({})
-  CardNumber: string;
+  @Column()
+  cardNumber: string;
 
-  @Column({})
+  @Column()
   expirationDate: string;
 
-  @Column({})
+  @Column()
   cvv: string;
 
   @Column({ type: 'decimal', nullable: true })
   extraCash: number;
 
-  @Column({ type: 'decimal' })
+  @Column({ type: 'decimal', nullable: true })
   expenditures: number;
 
   @OneToMany(() => Transaction, (transaction) => transaction.wallet)
@@ -56,12 +56,12 @@ export class Wallet {
   @OneToMany(() => Budget, (budget) => budget.wallet)
   budget: Budget[];
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   createAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   updateAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({select: false})
   deleteAt: Date;
 }
