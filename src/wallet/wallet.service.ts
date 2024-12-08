@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,7 +21,9 @@ export class WalletService {
   }
 
   async findById(id: string) {
-    const walletFound = await this.walletRepository.findOne({ where: {userID: id } });
+    const walletFound = await this.walletRepository.findOne({
+      where: { userID: id },
+    });
 
     if (!walletFound) throw new NotFoundException('Wallet not found');
 
@@ -36,18 +42,24 @@ export class WalletService {
   async subtractMoney(id: string, cost: number) {
     const walletFound = await this.findById(id);
 
-    const newSalary = walletFound.salary - cost
+    const newSalary = walletFound.salary - cost;
 
-    walletFound.salary = newSalary
+    if (newSalary < 0)
+      throw new BadRequestException(
+        'You cannot register this budget due to lack of money in the wallet.',
+      );
+
+    walletFound.salary = newSalary;
+    walletFound.expenditures += cost;
     return await this.walletRepository.save(walletFound);
   }
 
   async addMoney(id: string, cost: number) {
     const walletFound = await this.findById(id);
 
-    const newSalary = walletFound.salary + cost
+    const newSalary = walletFound.salary + cost;
 
-    walletFound.salary = newSalary
+    walletFound.salary = newSalary;
     return await this.walletRepository.save(walletFound);
   }
 

@@ -42,12 +42,12 @@ export class Category {
   @OneToMany(() => Transaction, (transaction) => transaction.category)
   transaction: Transaction[]
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   createAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   updateAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({select: false})
   deleteAt: Date;
 }
