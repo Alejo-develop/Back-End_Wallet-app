@@ -53,9 +53,6 @@ export class Transaction {
   store: string;
 
   @Column({nullable: true})
-  bill: string;
-
-  @Column({nullable: true})
   description: string;
 
   @Column({type: 'decimal'})
