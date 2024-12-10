@@ -29,6 +29,9 @@ export class Wallet {
   @Column({ type: 'decimal' })
   salary: number;
 
+  @Column({ type: 'decimal' })
+  totalCash: number;
+
   @Column()
   cardName: string;
 
@@ -40,6 +43,9 @@ export class Wallet {
 
   @Column()
   cvv: string;
+
+  @Column()
+  payDay: string;
 
   @Column({ type: 'decimal', nullable: true })
   extraCash: number;
