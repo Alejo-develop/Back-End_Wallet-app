@@ -20,7 +20,7 @@ export class WalletController {
 
   @Get(':id')
   async findWalletByID(@Param('id') id: string) {
-    return await this.walletService.findById(id);
+    return await this.walletService.findByUserId(id);
   }
 
   @Post()
@@ -33,6 +33,8 @@ export class WalletController {
     @Param('id') id: string,
     @Body() updateWalletDto: UpdateWalletDto,
   ) {
+    console.log(id, updateWalletDto);
+    
     return await this.walletService.update(id, updateWalletDto);
   }
 

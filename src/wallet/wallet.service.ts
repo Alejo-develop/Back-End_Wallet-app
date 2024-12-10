@@ -17,12 +17,27 @@ export class WalletService {
   ) {}
 
   async create(createWalletDto: CreateWalletDto) {
-    return await this.walletRepository.save(createWalletDto);
+    const formatWallet = {
+      ...createWalletDto,
+      totalCash: createWalletDto.salary
+    }
+
+    return await this.walletRepository.save(formatWallet);
+  }
+
+  async findByUserId(id: string) {
+    const walletFound = await this.walletRepository.findOne({
+      where: { userID: id },
+    });
+
+    if (!walletFound) throw new NotFoundException('Wallet not found');
+
+    return walletFound;
   }
 
   async findById(id: string) {
     const walletFound = await this.walletRepository.findOne({
-      where: { userID: id },
+      where: { id: id },
     });
 
     if (!walletFound) throw new NotFoundException('Wallet not found');
@@ -40,31 +55,31 @@ export class WalletService {
   }
 
   async subtractMoney(id: string, cost: number) {
-    const walletFound = await this.findById(id);
+    const walletFound = await this.findByUserId(id);
 
-    const newSalary = walletFound.salary - cost;
+    const newSalary = walletFound.totalCash - cost;
 
     if (newSalary < 0)
       throw new BadRequestException(
         'You cannot register this budget due to lack of money in the wallet.',
       );
 
-    walletFound.salary = newSalary;
+    walletFound.totalCash = newSalary;
     walletFound.expenditures += cost;
     return await this.walletRepository.save(walletFound);
   }
 
   async addMoney(id: string, cost: number) {
-    const walletFound = await this.findById(id);
+    const walletFound = await this.findByUserId(id);
 
-    const newSalary = walletFound.salary + cost;
+    const newSalary = walletFound.totalCash + cost;
 
     walletFound.salary = newSalary;
     return await this.walletRepository.save(walletFound);
   }
 
   async remove(id: string) {
-    await this.findById(id);
+    await this.findByUserId(id);
     return await this.walletRepository.softDelete(id);
   }
 }

@@ -7,22 +7,23 @@ export class CreateWalletDto {
   @IsNumber()
   salary: number;
 
-  @IsNumber()
-  totalCash: number;
-
+  @IsOptional()
   @IsString()
   cardName: string;
 
+  @IsOptional()
   @MinLength(10)
   @MaxLength(10)
   @IsString()
   cardNumber: string;
 
+  @IsOptional()
   @MinLength(4)
   @MaxLength(4)
   @IsString()
   expirationDate: string;
 
+  @IsOptional()
   @MinLength(3)
   @MaxLength(3)
   @IsString()
@@ -36,8 +37,4 @@ export class CreateWalletDto {
   @IsOptional()
   @IsNumber()
   extraCash: number;
-
-  @IsOptional()
-  @IsNumber()
-  expenditures?: number;
 }

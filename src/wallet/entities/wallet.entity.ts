@@ -32,26 +32,26 @@ export class Wallet {
   @Column({ type: 'decimal' })
   totalCash: number;
 
-  @Column()
+  @Column({nullable: true})
   cardName: string;
 
-  @Column()
+  @Column({nullable: true})
   cardNumber: string;
 
-  @Column()
+  @Column({nullable: true})
   expirationDate: string;
 
-  @Column()
+  @Column({nullable: true})
   cvv: string;
 
-  @Column()
+  @Column({nullable: true})
   payDay: string;
 
   @Column({ type: 'decimal', nullable: true })
   extraCash: number;
 
   @Column({ type: 'decimal', nullable: true })
-  expenditures: number;
+  expenditures?: number;
 
   @OneToMany(() => Transaction, (transaction) => transaction.wallet)
   transactions: Transaction[];
