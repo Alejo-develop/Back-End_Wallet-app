@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -31,6 +31,8 @@ export class CategorysService {
 
     categoryFound.budget_for_category =
       categoryFound.budget_for_category - cost;
+
+    if(categoryFound.budget_for_category < 0) throw new BadRequestException('Amount exceeds category limit')
 
     return await this.categoryRepository.save(categoryFound);
   }

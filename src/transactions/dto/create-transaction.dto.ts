@@ -23,8 +23,4 @@ export class CreateTransactionDto {
 
     @IsNumber()
     cost: number
-
-    @IsOptional()
-    @IsString()
-    date: string
 }

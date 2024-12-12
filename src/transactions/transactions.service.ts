@@ -22,7 +22,12 @@ export class TransactionsService {
       createTransactionDto.cost,
     );
 
-    return await this.transactionRepository.save(createTransactionDto);
+    const transaction = this.transactionRepository.create({
+      ...createTransactionDto,
+      date: new Date()
+    })
+
+    return await this.transactionRepository.save(transaction);
   }
 
   async findById(id: string) {

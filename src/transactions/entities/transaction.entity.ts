@@ -58,8 +58,8 @@ export class Transaction {
   @Column({type: 'decimal'})
   cost: number;
 
-  @Column()
-  date: string;
+  @Column('date')
+  date: Date;
 
   @CreateDateColumn()
   createAt: Date;
