@@ -2,6 +2,9 @@ import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateTransactionDto {
     @IsString()
+    userID: string;
+    
+    @IsString()
     budgetID: string;
 
     @IsString()
