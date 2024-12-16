@@ -11,16 +11,22 @@ export class TransactionsController {
 
   @Post()
   async create(@Body() createTransactionDto: CreateTransactionDto) {
+    console.log(createTransactionDto);
     return await this.transactionsService.create(createTransactionDto);
   }
 
-  @Get('id')
-  async findById(@Param(':id') id: string){
+  @Get('findOne/:id')
+  async findById(@Param('id') id: string){
     return await this.transactionsService.findById(id)
   }
 
-  @Patch('id')
-  async update(@Param(':id') id: string, @Body() updateTransactionDto: UpdateTransactionDto){
+  @Get(':id')
+  async findAll(@Param('id') id: string){
+    return await this.transactionsService.findAllTransactions(id)
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto){
     return await this.transactionsService.updateTransaction(id, updateTransactionDto)
   }
 }

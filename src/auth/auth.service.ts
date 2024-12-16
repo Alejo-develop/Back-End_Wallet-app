@@ -50,7 +50,6 @@ export class AuthService {
     );
 
     if (!userFound) throw new NotFoundException('Email not found');
-    console.log(userFound);
 
     await this.comparePasswords(loginDto.password, userFound.password);
     const token = await this.createToken(userFound.id);

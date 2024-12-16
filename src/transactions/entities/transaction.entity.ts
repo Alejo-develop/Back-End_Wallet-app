@@ -61,12 +61,12 @@ export class Transaction {
   @Column('date')
   date: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   createAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   updateAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({select: false})
   deleteAt: Date;
 }

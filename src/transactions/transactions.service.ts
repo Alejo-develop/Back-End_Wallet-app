@@ -24,8 +24,8 @@ export class TransactionsService {
 
     const transaction = this.transactionRepository.create({
       ...createTransactionDto,
-      date: new Date()
-    })
+      date: new Date(),
+    });
 
     return await this.transactionRepository.save(transaction);
   }
@@ -36,6 +36,24 @@ export class TransactionsService {
     });
 
     if (!transactionFound) throw new NotFoundException('Transaction not found');
+
+    return transactionFound;
+  }
+
+  async findAllTransactions(id: string) {
+    const transactionFound = await this.transactionRepository
+      .createQueryBuilder('transaction')
+      .leftJoinAndSelect('transaction.category', 'category')
+      .leftJoinAndSelect('transaction.budget', 'budget')
+      .where('transaction.userID = :id', { id })
+      .select(['transaction', 'category.name', 'budget.name'])
+      .getMany();
+
+    console.log(transactionFound);
+    
+
+    if (!transactionFound)
+      throw new NotFoundException('Transactions not found');
 
     return transactionFound;
   }
