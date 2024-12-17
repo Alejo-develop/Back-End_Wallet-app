@@ -25,19 +25,21 @@ export class CategorysController {
 
   @Post()
   async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
+    console.log(createCategoryDto);
+    
     return await this.categorysService.createCategory(createCategoryDto);
   }
 
-  @Patch('id')
-  async updateCategory(
-    @Param(':id') id: string,
-    updateCategoryDto: UpdateCategoryDto,
+  @Patch(':id')
+  async addMoney(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return await this.categorysService.updateCategory(id, updateCategoryDto);
+    return await this.categorysService.addMoney(id, updateCategoryDto);
   }
 
-  @Delete('id')
-  async removeCategory(@Param(':id') id: string) {
+  @Delete(':id')
+  async removeCategory(@Param('id') id: string) { 
     return await this.categorysService.removeCategory(id);
   }
 }

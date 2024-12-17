@@ -49,9 +49,14 @@ export class CategorysService {
     return categoryFound;
   }
 
-  async updateCategory(id: string, updateCategoryDto: UpdateCategoryDto) {
-    const categoryFound = await this.findOneById(id);
-
+  async addMoney(id: string, updateCategoryDto: UpdateCategoryDto) {
+    const categoryFound = await this.findOneById(id)
+    
+    await this.budgetServices.substractMoney(
+      updateCategoryDto.budgetID,
+      updateCategoryDto.budget_for_category,
+    );
+    
     return await this.categoryRepository.save({
       ...categoryFound,
       ...updateCategoryDto,

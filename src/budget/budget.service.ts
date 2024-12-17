@@ -34,6 +34,8 @@ export class BudgetService {
     const budgetFound = await this.budgetRepository.find({
       where: { userID: userID },
     });
+    console.log(budgetFound);
+    
 
     if (!budgetFound) throw new NotFoundException('Budgets not found');
 
@@ -51,6 +53,8 @@ export class BudgetService {
 
   async substractMoney(id: string, cost: number) {
     const budgetFound = await this.findOne(id);
+    console.log(budgetFound);
+    
 
     const newBudget = budgetFound.budget - cost;
 
@@ -63,12 +67,13 @@ export class BudgetService {
     return await this.budgetRepository.save(budgetFound);
   }
 
-  async addMoney(id: string, cost: number) {
+  async addMoney(id: string, userId: string, cost: number) {
     const budgetFound = await this.findOne(id);
 
-    budgetFound.budget = budgetFound.budget + cost;
+    const newBudget = parseFloat(budgetFound.budget.toString()) + cost
+    budgetFound.budget = newBudget
 
-    await this.walletServices.subtractMoney(id, cost);
+    await this.walletServices.subtractMoney(userId, cost);
 
     return await this.budgetRepository.save(budgetFound);
   }

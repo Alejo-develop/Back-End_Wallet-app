@@ -33,8 +33,8 @@ export class Category {
   @Column({ nullable: false })
   name: string;
 
-  @Column()
-  url_icon: string;
+  @Column({nullable: true})
+  url_icon?: string;
 
   @Column({type: 'decimal'})
   budget_for_category: number

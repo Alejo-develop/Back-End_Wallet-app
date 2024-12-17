@@ -56,6 +56,8 @@ export class WalletService {
 
   async subtractMoney(id: string, cost: number) {
     const walletFound = await this.findByUserId(id);
+    console.log(walletFound);
+    
 
     const newSalary = walletFound.totalCash - cost;
 
@@ -65,7 +67,9 @@ export class WalletService {
       );
 
     walletFound.totalCash = newSalary;
-    walletFound.expenditures += cost;
+    const newExpenditures = parseFloat(walletFound.expenditures.toString()) + cost
+    walletFound.expenditures = newExpenditures
+
     return await this.walletRepository.save(walletFound);
   }
 

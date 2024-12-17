@@ -23,4 +23,14 @@ export class BudgetController {
   async createBudget(@Body() createBudgetDto: CreateBudgetDto){
     return await this.budgetService.createBudget(createBudgetDto)
   } 
+
+  @Patch(':id/:userid')
+  async addMoney(@Param('id') id: string, @Param('userid') userId: string, @Body() updateBudgetDto: UpdateBudgetDto){    
+    return await this.budgetService.addMoney(id, userId, updateBudgetDto.budget)
+  }
+
+  @Delete(':id')
+  async removeBudget(@Param('id') id: string){
+    return await this.budgetService.remove(id)
+  } 
 }

@@ -48,9 +48,9 @@ export class Budget {
   @CreateDateColumn()
   createAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   updateAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({select: false})
   deleteAt: Date;
 }

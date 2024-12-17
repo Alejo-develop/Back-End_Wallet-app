@@ -33,8 +33,6 @@ export class WalletController {
     @Param('id') id: string,
     @Body() updateWalletDto: UpdateWalletDto,
   ) {
-    console.log(id, updateWalletDto);
-    
     return await this.walletService.update(id, updateWalletDto);
   }
 
