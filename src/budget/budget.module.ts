@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Budget } from './entities/budget.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { TransactionsModule } from 'src/transactions/transactions.module';
-import { WalletModule } from 'src/wallet/wallet.module';
+import { WalletModule } from '../wallet/wallet.module';
 import { BudgetService } from './budget.service';
 import { BudgetController } from './budget.controller';
-import { CategorysModule } from 'src/categorys/categorys.module';
+import { CategorysModule } from '../categorys/categorys.module';
 
 @Module({
   imports: [

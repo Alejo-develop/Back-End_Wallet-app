@@ -11,7 +11,7 @@ import {
 import { CategorysService } from './categorys.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { AuthGuard } from 'src/common/guard/auth.guard';
+import { AuthGuard } from '../common/guard/auth.guard';
 
 @UseGuards(AuthGuard)
 @Controller('categorys')

@@ -4,8 +4,8 @@ import { CategorysController } from './categorys.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
 import { JwtModule } from '@nestjs/jwt';
-import { TransactionsModule } from 'src/transactions/transactions.module';
-import { BudgetModule } from 'src/budget/budget.module';
+import { TransactionsModule } from '../transactions/transactions.module';
+import { BudgetModule } from '../budget/budget.module';
 
 @Module({
   imports: [

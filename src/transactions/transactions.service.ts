@@ -4,8 +4,8 @@ import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Repository } from 'typeorm';
-import { BudgetService } from 'src/budget/budget.service';
-import { CategorysService } from 'src/categorys/categorys.service';
+import { BudgetService } from '../budget/budget.service';
+import { CategorysService } from '../categorys/categorys.service';
 
 @Injectable()
 export class TransactionsService {

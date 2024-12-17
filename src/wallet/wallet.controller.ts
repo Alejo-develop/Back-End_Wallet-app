@@ -11,7 +11,7 @@ import {
 import { WalletService } from './wallet.service';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
-import { AuthGuard } from 'src/common/guard/auth.guard';
+import { AuthGuard } from '../common/guard/auth.guard';
 
 @UseGuards(AuthGuard)
 @Controller('wallet')

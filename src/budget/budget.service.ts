@@ -9,8 +9,8 @@ import { CreateBudgetDto } from './dto/create-budget.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Budget } from './entities/budget.entity';
 import { Repository } from 'typeorm';
-import { WalletService } from 'src/wallet/wallet.service';
-import { TransactionsService } from 'src/transactions/transactions.service';
+import { WalletService } from '../wallet/wallet.service';
+import { TransactionsService } from '../transactions/transactions.service';
 
 @Injectable()
 export class BudgetService {

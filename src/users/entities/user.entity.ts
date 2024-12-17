@@ -1,7 +1,7 @@
-import { Budget } from 'src/budget/entities/budget.entity';
-import { Category } from 'src/categorys/entities/category.entity';
-import { Transaction } from 'src/transactions/entities/transaction.entity';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { Budget } from '../../budget/entities/budget.entity';
+import { Category } from '../../categorys/entities/category.entity';
+import { Transaction } from '../../transactions/entities/transaction.entity';
+import { Wallet } from '../../wallet/entities/wallet.entity';
 import {
   Column,
   CreateDateColumn,
