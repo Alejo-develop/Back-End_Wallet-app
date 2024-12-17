@@ -67,7 +67,7 @@ export class WalletService {
       );
 
     walletFound.totalCash = newSalary;
-    const newExpenditures = parseFloat(walletFound.expenditures.toString()) + cost
+    const newExpenditures = walletFound.expenditures + cost
     walletFound.expenditures = newExpenditures
 
     return await this.walletRepository.save(walletFound);

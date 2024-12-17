@@ -70,7 +70,7 @@ export class BudgetService {
   async addMoney(id: string, userId: string, cost: number) {
     const budgetFound = await this.findOne(id);
 
-    const newBudget = parseFloat(budgetFound.budget.toString()) + cost
+    const newBudget = budgetFound.budget + cost
     budgetFound.budget = newBudget
 
     await this.walletServices.subtractMoney(userId, cost);
